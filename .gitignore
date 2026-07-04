@@ -8,3 +8,6 @@ db-data/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Superpowers planning files
+docs/
