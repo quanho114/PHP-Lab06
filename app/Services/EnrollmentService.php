@@ -20,7 +20,7 @@ class EnrollmentService
         $payment_status = trim($query['payment_status'] ?? '');
         
         $page = max(1, (int)($query['page'] ?? 1));
-        $perPage = 10;
+        $perPage = 5;
 
         $sort = trim($query['sort'] ?? 'created_at');
         $direction = trim($query['direction'] ?? 'desc');
