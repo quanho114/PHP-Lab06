@@ -87,6 +87,12 @@ class LeadController
     public function delete(): void
     {
         require_login();
+        if (($_SESSION['user_role'] ?? '') !== 'admin') {
+            flash('error', 'Quyền truy cập bị từ chối: Chỉ tài khoản Admin mới có quyền xóa lead.');
+            redirect('/leads');
+            return;
+        }
+        
         $id = (int)($_POST['id'] ?? 0);
         
         $result = $this->service->deleteLead($id);

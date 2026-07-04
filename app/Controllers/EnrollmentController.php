@@ -92,6 +92,12 @@ class EnrollmentController
     public function delete(): void
     {
         require_login();
+        if (($_SESSION['user_role'] ?? '') !== 'admin') {
+            flash('error', 'Quyền truy cập bị từ chối: Chỉ tài khoản Admin mới có quyền xóa phiếu đăng ký.');
+            redirect('/enrollments');
+            return;
+        }
+        
         $id = (int)($_POST['id'] ?? 0);
         
         $result = $this->service->deleteEnrollment($id);
