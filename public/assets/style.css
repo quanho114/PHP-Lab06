@@ -1769,15 +1769,15 @@ input[type="number"] {
 .db-wrapper {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 12px 0 32px;
+    padding: 0 0 24px;
 }
 
 .db-welcome-panel {
     background-color: var(--bg-surface);
     border: 1px solid var(--border-light);
     border-radius: var(--radius-md);
-    padding: 32px;
-    margin-bottom: 32px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1791,7 +1791,7 @@ input[type="number"] {
     position: absolute;
     right: 0;
     top: 0;
-    width: 300px;
+    width: 250px;
     height: 100%;
     background: radial-gradient(circle at 100% 0%, var(--accent-glow) 0%, transparent 80%);
     pointer-events: none;
@@ -1799,19 +1799,19 @@ input[type="number"] {
 
 .db-welcome-title {
     font-family: var(--font-serif);
-    font-size: 2.2rem;
+    font-size: 1.6rem;
     font-weight: 800;
     color: var(--text-main);
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     line-height: 1.15;
     letter-spacing: -0.5px;
 }
 
 .db-welcome-subtitle {
     color: var(--text-secondary);
-    font-size: 0.92rem;
+    font-size: 0.85rem;
     max-width: 600px;
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
 .db-welcome-time {
@@ -1827,7 +1827,7 @@ input[type="number"] {
 
 .db-time-label {
     display: block;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--text-muted);
     text-transform: uppercase;
     font-weight: 600;
@@ -1837,11 +1837,11 @@ input[type="number"] {
 
 .db-time-val {
     font-family: var(--font-mono);
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     font-weight: 700;
     color: var(--text-main);
     background-color: var(--bg-main);
-    padding: 6px 12px;
+    padding: 4px 10px;
     border-radius: var(--radius-sm);
     border: 1px solid var(--border-light);
     display: inline-block;
@@ -1850,16 +1850,16 @@ input[type="number"] {
 /* Stats Card Modern Redesign */
 .db-stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 24px;
-    margin-bottom: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
 }
 
 .db-stat-card {
     background-color: var(--bg-surface);
     border: 1px solid var(--border-light);
     border-radius: var(--radius-md);
-    padding: 28px;
+    padding: 18px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1870,7 +1870,7 @@ input[type="number"] {
 }
 
 .db-stat-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
     box-shadow: var(--shadow-md);
     border-color: var(--border-focus);
 }
@@ -1881,30 +1881,30 @@ input[type="number"] {
 
 .db-stat-label {
     display: block;
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     color: var(--text-muted);
     text-transform: uppercase;
     font-weight: 700;
     letter-spacing: 1px;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
 }
 
 .db-stat-val {
     display: block;
-    font-size: 2.4rem;
+    font-size: 1.8rem;
     font-weight: 800;
     color: var(--text-main);
     line-height: 1.1;
-    letter-spacing: -1px;
+    letter-spacing: -0.5px;
     font-variant-numeric: tabular-nums;
-    margin-bottom: 6px;
+    margin-bottom: 2px;
 }
 
 .db-stat-trend {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 600;
     color: var(--text-secondary);
 }
@@ -1914,8 +1914,8 @@ input[type="number"] {
 }
 
 .db-stat-icon-wrapper {
-    width: 56px;
-    height: 56px;
+    width: 44px;
+    height: 44px;
     border-radius: var(--radius-sm);
     display: flex;
     align-items: center;
@@ -1923,11 +1923,16 @@ input[type="number"] {
     transition: all 0.2s ease;
 }
 
+.db-stat-icon-wrapper svg {
+    width: 20px;
+    height: 20px;
+}
+
 /* Bento Area */
 .db-bento-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 20px;
 }
 
 @media (min-width: 992px) {
@@ -1940,29 +1945,29 @@ input[type="number"] {
     background-color: var(--bg-surface);
     border: 1px solid var(--border-light);
     border-radius: var(--radius-md);
-    padding: 32px;
+    padding: 20px 24px;
     box-shadow: var(--shadow-sm);
 }
 
 .db-bento-card h3 {
     font-family: var(--font-serif);
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 700;
     color: var(--text-main);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .db-bento-card-subtitle {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--text-muted);
-    margin-bottom: 24px;
+    margin-bottom: 16px;
 }
 
 /* Quick Actions Bento Items */
 .db-action-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 12px;
 }
 
 @media (min-width: 576px) {
@@ -1974,12 +1979,12 @@ input[type="number"] {
 .db-action-item {
     border: 1px solid var(--border-light);
     border-radius: var(--radius-sm);
-    padding: 20px;
+    padding: 14px 16px;
     text-decoration: none;
     color: inherit;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 4px;
     background-color: var(--bg-main);
     transition: all 0.2s ease;
 }
@@ -1992,7 +1997,7 @@ input[type="number"] {
 
 .db-action-title {
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 0.88rem;
     color: var(--text-main);
     display: flex;
     align-items: center;
@@ -2000,7 +2005,7 @@ input[type="number"] {
 }
 
 .db-action-desc {
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     color: var(--text-secondary);
     line-height: 1.4;
 }
@@ -2010,29 +2015,29 @@ input[type="number"] {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
 }
 
 .db-sec-item {
     display: flex;
     align-items: flex-start;
-    gap: 12px;
-    font-size: 0.85rem;
+    gap: 10px;
+    font-size: 0.8rem;
     color: var(--text-secondary);
-    line-height: 1.5;
+    line-height: 1.4;
 }
 
 .db-sec-icon {
     flex-shrink: 0;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     background-color: var(--success-bg);
     color: var(--success-text);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     margin-top: 2px;
     border: 1px solid var(--success-border);
 }
