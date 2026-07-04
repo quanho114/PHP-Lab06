@@ -1752,3 +1752,15 @@ textarea {
     background-color: var(--primary);
     color: #ffffff;
 }
+
+/* Chrome, Safari, Edge, Opera: Hide number spinner controls */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox: Hide number spinner controls */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
