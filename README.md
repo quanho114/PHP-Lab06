@@ -7,17 +7,22 @@ Dự án **Training Center CRM** là một hệ thống web portal nội bộ qu
 ## 🚀 Tính Năng & Bảo Mật Nổi Bật
 
 1. **Kiến trúc MVC chuẩn:** Tách biệt hoàn toàn phần xử lý nghiệp vụ (Service), tương tác CSDL (Repository), điều phối (Controller), và giao diện hiển thị (View/Layout/Partial).
-2. **Session Security:**
+2. **Session Security & Timeout:**
    - Session cookies được cấu hình với các cờ bảo mật `HttpOnly` (chống XSS đánh cắp session cookie), `SameSite=Lax` (giảm thiểu rủi ro CSRF), và `Secure` khi chạy dưới HTTPS.
    - Cơ chế tự động hủy session khi không hoạt động quá 10 phút (Inactivity Timeout).
    - Gọi `session_regenerate_id(true)` ngay sau khi đăng nhập thành công chống tấn công Session Fixation.
-3. **Anti-Spam cho Form Công Khai:**
+3. **Bảo vệ CSRF:**
+   - Tích hợp Token bảo mật CSRF dùng một lần (`csrf_field()`) cho **tất cả các form sử dụng phương thức POST** (Đăng nhập, Đăng xuất, Thêm mới, Cập nhật, Xóa) nhằm ngăn chặn hoàn toàn tấn công giả mạo yêu cầu từ trang web khác.
+4. **Phân Quyền Người Dùng (Role Authorization - RBAC):**
+   - Phân biệt rõ vai trò `admin` và `staff`.
+   - Chỉ tài khoản có vai trò `admin` mới được cấp quyền thực thi hành động Xóa bản ghi (Course Leads và Enrollments). Người dùng có vai trò `staff` chỉ được phép xem danh sách, tạo mới và chỉnh sửa thông tin/trạng thái.
+5. **Anti-Spam cho Form Công Khai:**
    - **Honeypot Field:** Field ẩn `website` trên form đăng ký tư vấn học viên. Nếu bot điền dữ liệu vào field này, request sẽ bị bỏ qua một cách im lặng.
    - **Rate Limiting:** Giới hạn thời gian tối thiểu giữa các lần gửi đăng ký tư vấn là 5 giây (sử dụng session tracking).
-4. **Bảo Mật Form & PRG Pattern:**
+6. **Bảo Mật Form & PRG Pattern:**
    - Áp dụng triệt để mô hình **Post-Redirect-Get (PRG)** sau khi thêm/sửa/xóa thành công nhằm chống submit trùng lặp dữ liệu khi người dùng làm mới trang (F5).
    - Tự động giữ lại dữ liệu cũ khi có lỗi kiểm định (Preserve Old Input) và hiển thị thông báo lỗi thân thiện.
-5. **Database Quality & Safety:**
+7. **Database Quality & Safety:**
    - Dữ liệu đầu vào luôn được chạy qua prepared statements của PDO giúp triệt tiêu hoàn toàn nguy cơ tấn công SQL Injection.
    - Escape toàn bộ dữ liệu hiển thị ra View bằng hàm `e()` phòng chống tấn công XSS.
    - Thiết kế Database được tối ưu hóa với các chỉ mục (Indexes) trên cột tìm kiếm và sắp xếp.
