@@ -30,6 +30,14 @@ Dự án **Training Center CRM** là một hệ thống web portal nội bộ qu
 
 ---
 
+## 📐 Kiến trúc & Pipeline hệ thống
+
+Dưới đây là sơ đồ luồng hoạt động (pipeline) của hệ thống:
+
+![System Pipeline](image/php.png)
+
+---
+
 ## 🔑 Tài Khoản Demo
 
 - **Admin Account:** `admin@example.com`
