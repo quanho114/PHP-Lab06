@@ -613,27 +613,29 @@ tbody tr:last-child td {
     background-color: var(--bg-surface);
     border: 1px solid var(--border-light);
     border-radius: var(--radius-lg);
-    padding: 24px;
-    box-shadow: var(--shadow-sm);
+    padding: 32px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
 .form-row {
     display: flex;
-    align-items: flex-start;
-    margin-bottom: 16px;
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 20px;
 }
 
 .form-row label {
-    width: 140px;
-    font-size: 0.85rem;
+    width: auto;
+    font-size: 0.82rem;
     font-weight: 600;
     color: var(--text-secondary);
-    padding-top: 8px;
-    padding-right: 16px;
+    padding-top: 0;
+    padding-right: 0;
+    margin-bottom: 6px;
 }
 
 .form-row .input-container {
-    flex: 1;
+    width: 100%;
 }
 
 input[type="text"],
@@ -644,14 +646,14 @@ input[type="datetime-local"],
 select,
 textarea {
     width: 100%;
-    padding: 8px 12px;
+    padding: 10px 14px;
     font-family: inherit;
     font-size: 0.85rem;
     border: 1px solid var(--border-light);
-    border-radius: var(--radius-sm);
-    background-color: var(--bg-surface);
+    border-radius: 8px;
+    background-color: #ffffff;
     color: var(--text-main);
-    transition: all 0.15s ease;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 input:focus,
@@ -674,25 +676,15 @@ textarea {
 
 .form-actions-horizontal {
     display: flex;
-    gap: 8px;
+    gap: 12px;
     margin-top: 24px;
-    padding-left: 140px;
+    padding-left: 0;
 }
 
 @media (max-width: 640px) {
-    .form-row {
+    .form-actions-horizontal {
         flex-direction: column;
         align-items: stretch;
-    }
-    .form-row label {
-        width: auto;
-        padding-right: 0;
-        margin-bottom: 6px;
-        padding-top: 0;
-    }
-    .form-actions-horizontal {
-        padding-left: 0;
-        flex-direction: column;
     }
 }
 

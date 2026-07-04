@@ -1,4 +1,4 @@
-<div style="max-width: 700px; margin: 0 auto;">
+<div style="max-width: 600px; margin: 0 auto;">
     <div class="index-header" style="margin-bottom: 24px;">
         <h1><?= e($title) ?></h1>
         <a href="/enrollments" class="btn secondary">&larr; Quay lại danh sách</a>
