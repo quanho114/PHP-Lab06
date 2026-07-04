@@ -59,9 +59,18 @@
                             $arrow = ($direction === 'asc') ? ' ▲' : ' ▼';
                         }
                         $sortUrl = "/enrollments?q=" . urlencode($keyword) . "&payment_status=" . urlencode($payment_status) . "&sort={$col}&direction=" . ($isActive ? $toggleDirection : 'asc');
+                        
+                        $thStyle = '';
+                        if ($col === 'id') $thStyle = 'style="width: 70px; white-space: nowrap;"';
+                        elseif ($col === 'enrollment_code') $thStyle = 'style="width: 140px; white-space: nowrap;"';
+                        elseif ($col === 'student_name') $thStyle = 'style="white-space: nowrap;"';
+                        elseif ($col === 'student_email') $thStyle = 'style="max-width: 220px; white-space: nowrap;"';
+                        elseif ($col === 'course_fee') $thStyle = 'style="width: 150px; white-space: nowrap;"';
+                        elseif ($col === 'payment_status') $thStyle = 'style="width: 130px; white-space: nowrap;"';
+                        elseif ($col === 'created_at') $thStyle = 'style="width: 150px; white-space: nowrap;"';
                     ?>
-                        <th>
-                            <a href="<?= $sortUrl ?>" style="color: inherit; text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                        <th <?= $thStyle ?>>
+                            <a href="<?= $sortUrl ?>" style="color: inherit; text-decoration: none; display: flex; align-items: center; gap: 4px; white-space: nowrap;">
                                 <?= e($label) ?><span style="font-size: 0.7rem;"><?= $arrow ?></span>
                             </a>
                         </th>
@@ -80,7 +89,7 @@
                             <td style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">#<?= e((string)$item['id']) ?></td>
                             <td style="font-family: var(--font-mono); font-weight: 700; color: var(--accent);"><?= e($item['enrollment_code']) ?></td>
                             <td style="white-space: nowrap; font-weight: 600; color: var(--text-main);"><?= e($item['student_name']) ?></td>
-                            <td style="font-size: 0.82rem; color: var(--text-secondary);"><?= e($item['student_email'] ?: '-') ?></td>
+                            <td style="font-size: 0.82rem; color: var(--text-secondary); max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="<?= e($item['student_email'] ?: '') ?>"><?= e($item['student_email'] ?: '-') ?></td>
                             <td style="font-family: var(--font-mono); font-weight: 700; color: var(--text-main);"><?= e(number_format($item['course_fee'], 0, ',', '.')) ?> <span style="font-size: 0.72rem; font-weight: 600; color: var(--text-muted);">VNĐ</span></td>
                             <td>
                                 <?php

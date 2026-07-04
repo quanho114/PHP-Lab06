@@ -269,7 +269,7 @@ form.toolbar {
 
 .search-input-group input {
     width: 100%;
-    padding: 10px 14px 10px 36px;
+    padding: 10px 14px 10px 36px !important;
     font-size: 0.82rem;
     background-color: #ffffff;
     border: 1px solid var(--border-light);

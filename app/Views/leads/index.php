@@ -59,9 +59,18 @@
                             $arrow = ($direction === 'asc') ? ' ▲' : ' ▼';
                         }
                         $sortUrl = "/leads?q=" . urlencode($keyword) . "&status=" . urlencode($status) . "&sort={$col}&direction=" . ($isActive ? $toggleDirection : 'asc');
+                        
+                        $thStyle = '';
+                        if ($col === 'id') $thStyle = 'style="width: 70px; white-space: nowrap;"';
+                        elseif ($col === 'fullname') $thStyle = 'style="white-space: nowrap;"';
+                        elseif ($col === 'email') $thStyle = 'style="max-width: 220px; white-space: nowrap;"';
+                        elseif ($col === 'phone') $thStyle = 'style="width: 140px; white-space: nowrap;"';
+                        elseif ($col === 'interested_course') $thStyle = 'style="white-space: nowrap;"';
+                        elseif ($col === 'status') $thStyle = 'style="width: 120px; white-space: nowrap;"';
+                        elseif ($col === 'created_at') $thStyle = 'style="width: 150px; white-space: nowrap;"';
                     ?>
-                        <th>
-                            <a href="<?= $sortUrl ?>" style="color: inherit; text-decoration: none; display: flex; align-items: center; gap: 4px;">
+                        <th <?= $thStyle ?>>
+                            <a href="<?= $sortUrl ?>" style="color: inherit; text-decoration: none; display: flex; align-items: center; gap: 4px; white-space: nowrap;">
                                 <?= e($label) ?><span style="font-size: 0.7rem;"><?= $arrow ?></span>
                             </a>
                         </th>
@@ -79,7 +88,7 @@
                         <tr>
                             <td style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">#<?= e((string)$lead['id']) ?></td>
                             <td style="white-space: nowrap; font-weight: 600; color: var(--text-main);"><?= e($lead['fullname']) ?></td>
-                            <td style="font-size: 0.82rem; color: var(--text-secondary);"><?= e($lead['email']) ?></td>
+                            <td style="font-size: 0.82rem; color: var(--text-secondary); max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="<?= e($lead['email']) ?>"><?= e($lead['email']) ?></td>
                             <td style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-secondary);"><?= e($lead['phone'] ?: '-') ?></td>
                             <td style="font-weight: 500; color: var(--text-main);"><?= e($lead['interested_course'] ?: '-') ?></td>
                             <td>
