@@ -603,9 +603,26 @@ tbody tr:last-child td {
     align-items: start;
 }
 
+.form-row-group {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 0px;
+}
+
+.main-area:has(.landing-page-wrapper) .main-content {
+    padding: 16px 40px;
+}
+
 @media (max-width: 992px) {
     .form-container-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .form-row-group {
+        flex-direction: column;
+        gap: 0px;
     }
 }
 
