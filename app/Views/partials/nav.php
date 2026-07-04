@@ -37,7 +37,7 @@ $uriPath = explode('?', $uri)[0];
                 <span>Thêm Học Viên</span>
             </a>
             
-            <a href="/health" class="menu-item" target="_blank">
+            <a href="/health" class="menu-item <?= $uriPath === '/health' ? 'active' : '' ?>">
                 <span>Health</span>
             </a>
         </nav>
