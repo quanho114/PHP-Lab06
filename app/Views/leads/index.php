@@ -8,7 +8,10 @@
     <div class="data-card-header">
         <form method="GET" action="/leads" class="toolbar">
             <div class="search-input-group">
-                <span class="search-icon">🔍</span>
+                <svg class="search-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
                 <input type="text" name="q" value="<?= e($keyword) ?>" placeholder="Tìm theo tên, email, điện thoại, khóa học...">
             </div>
             
@@ -74,11 +77,11 @@
                 <?php else: ?>
                     <?php foreach ($leads as $lead): ?>
                         <tr>
-                            <td><?= e((string)$lead['id']) ?></td>
-                            <td class="font-semibold"><?= e($lead['fullname']) ?></td>
-                            <td><?= e($lead['email']) ?></td>
-                            <td><?= e($lead['phone'] ?: '-') ?></td>
-                            <td><?= e($lead['interested_course'] ?: '-') ?></td>
+                            <td style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">#<?= e((string)$lead['id']) ?></td>
+                            <td style="white-space: nowrap; font-weight: 600; color: var(--text-main);"><?= e($lead['fullname']) ?></td>
+                            <td style="font-size: 0.82rem; color: var(--text-secondary);"><?= e($lead['email']) ?></td>
+                            <td style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-secondary);"><?= e($lead['phone'] ?: '-') ?></td>
+                            <td style="font-weight: 500; color: var(--text-main);"><?= e($lead['interested_course'] ?: '-') ?></td>
                             <td>
                                 <?php
                                 $statusClass = 'badge-other';
@@ -89,14 +92,14 @@
                                 ?>
                                 <span class="badge <?= $statusClass ?>"><?= ucfirst(e($lead['status'])) ?></span>
                             </td>
-                            <td><?= e(date('d/m/Y H:i', strtotime($lead['created_at']))) ?></td>
+                            <td style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-muted);"><?= e(date('d/m/Y H:i', strtotime($lead['created_at']))) ?></td>
                             <td class="text-right">
                                 <div class="actions-wrapper">
                                     <a href="/leads/edit?id=<?= e((string)$lead['id']) ?>" class="btn edit-btn">Sửa</a>
                                     <form method="POST" action="/leads/delete" style="display: inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa lead này?');">
                                         <?= csrf_field() ?>
                                         <input type="hidden" name="id" value="<?= e((string)$lead['id']) ?>">
-                                        <button type="submit" class="link danger">Xóa</button>
+                                        <button type="submit" class="btn danger-btn">Xóa</button>
                                     </form>
                                 </div>
                             </td>

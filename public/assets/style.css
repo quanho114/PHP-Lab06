@@ -256,49 +256,51 @@ form.toolbar {
     min-width: 260px;
 }
 
-.search-icon {
+.search-icon-svg {
     position: absolute;
     left: 12px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 0.85rem;
+    width: 14px;
+    height: 14px;
     color: var(--text-muted);
+    pointer-events: none;
 }
 
 .search-input-group input {
     width: 100%;
-    padding: 8px 12px 8px 36px;
-    font-size: 0.85rem;
-    background-color: var(--bg-main);
+    padding: 10px 14px 10px 36px;
+    font-size: 0.82rem;
+    background-color: #ffffff;
     border: 1px solid var(--border-light);
-    border-radius: var(--radius-sm);
+    border-radius: 8px;
     color: var(--text-main);
-    transition: all 0.15s ease;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .search-input-group input:focus {
     outline: none;
     border-color: var(--border-focus);
-    background-color: var(--bg-surface);
+    background-color: #ffffff;
     box-shadow: 0 0 0 2px var(--primary-glow);
 }
 
 .filter-group select {
-    padding: 8px 12px;
-    font-size: 0.85rem;
-    background-color: var(--bg-main);
+    padding: 10px 14px;
+    font-size: 0.82rem;
+    background-color: #ffffff;
     border: 1px solid var(--border-light);
-    border-radius: var(--radius-sm);
+    border-radius: 8px;
     color: var(--text-main);
     cursor: pointer;
-    min-width: 150px;
-    transition: all 0.15s ease;
+    min-width: 160px;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .filter-group select:focus {
     outline: none;
     border-color: var(--border-focus);
-    background-color: var(--bg-surface);
+    background-color: #ffffff;
     box-shadow: 0 0 0 2px var(--primary-glow);
 }
 
@@ -497,39 +499,59 @@ tbody tr:last-child td {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 12px;
+    gap: 8px;
 }
 
 .btn.edit-btn {
-    padding: 4px 10px;
-    font-size: 0.78rem;
-    font-weight: 500;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
     background-color: var(--bg-surface);
     color: var(--text-secondary);
     border: 1px solid var(--border-light);
-    border-radius: var(--radius-sm);
+    border-radius: 6px;
     text-decoration: none;
-    transition: all 0.15s ease;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn.edit-btn:hover {
-    background-color: var(--bg-main);
-    border-color: #cbd5e1;
+    background-color: var(--bg-surface-alt);
+    border-color: var(--border-focus);
+    color: var(--text-main);
+    transform: translateY(-1px);
 }
 
-.link.danger {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 0.78rem;
-    font-weight: 500;
+.btn.edit-btn:active {
+    transform: translateY(1px) scale(0.98);
+}
+
+.btn.danger-btn {
+    background: var(--danger-bg);
     color: var(--danger-text);
-    text-decoration: none;
+    border: 1px solid var(--danger-border);
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.link.danger:hover {
-    color: #991b1b;
+.btn.danger-btn:hover {
+    background-color: #fce7e2;
+    border-color: #f1b3a2;
+    color: #992c15;
+    transform: translateY(-1px);
+}
+
+.btn.danger-btn:active {
+    transform: translateY(1px) scale(0.98);
 }
 
 /* Pagination */
@@ -541,35 +563,36 @@ tbody tr:last-child td {
 
 .page-numbers {
     display: flex;
-    gap: 4px;
+    gap: 6px;
 }
 
 .pagination .page-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: 28px;
-    padding: 0 10px;
-    font-size: 0.78rem;
-    font-weight: 500;
-    border-radius: var(--radius-sm);
+    height: 32px;
+    padding: 0 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 6px;
     text-decoration: none;
     background-color: var(--bg-surface);
     border: 1px solid var(--border-light);
     color: var(--text-secondary);
-    transition: all 0.15s ease;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .pagination .page-link:hover {
-    background-color: var(--bg-main);
-    border-color: #cbd5e1;
+    background-color: var(--bg-surface-alt);
+    border-color: var(--border-focus);
+    color: var(--text-main);
 }
 
 .pagination .page-link.active {
     background-color: var(--primary);
     border-color: var(--primary);
     color: #ffffff;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 /* Forms layout */
