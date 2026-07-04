@@ -1,0 +1,10 @@
+# Logs and cache
+storage/logs/*.log
+scratch/cookie_*
+
+# Docker database data
+db-data/
+
+# OS files
+.DS_Store
+Thumbs.db
