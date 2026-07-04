@@ -600,7 +600,7 @@ tbody tr:last-child td {
     display: grid;
     grid-template-columns: 1.4fr 1fr;
     gap: 24px;
-    align-items: start;
+    align-items: stretch;
 }
 
 .form-row-group {
@@ -705,13 +705,16 @@ textarea {
     }
 }
 
-/* Requirements & Rules Panel */
 .requirements-card {
     background-color: var(--bg-surface);
     border: 1px solid var(--border-light);
     border-radius: var(--radius-lg);
-    padding: 24px;
-    box-shadow: var(--shadow-sm);
+    padding: 32px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .requirements-card h3 {
