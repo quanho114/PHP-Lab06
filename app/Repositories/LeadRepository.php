@@ -17,12 +17,15 @@ class LeadRepository
 
     public function countAll(string $keyword = '', string $status = ''): int
     {
-        $sql = "SELECT COUNT(*) AS total FROM course_leads WHERE 1=1";
+        $sql = "SELECT COUNT(*) AS total FROM course_leads WHERE deleted_at IS NULL";
         $params = [];
 
         if ($keyword !== '') {
-            $sql .= " AND (fullname LIKE :keyword OR email LIKE :keyword OR phone LIKE :keyword OR interested_course LIKE :keyword)";
-            $params['keyword'] = '%' . $keyword . '%';
+            $sql .= " AND (fullname LIKE :keyword1 OR email LIKE :keyword2 OR phone LIKE :keyword3 OR interested_course LIKE :keyword4)";
+            $params['keyword1'] = '%' . $keyword . '%';
+            $params['keyword2'] = '%' . $keyword . '%';
+            $params['keyword3'] = '%' . $keyword . '%';
+            $params['keyword4'] = '%' . $keyword . '%';
         }
         if ($status !== '') {
             $sql .= " AND status = :status";
@@ -43,12 +46,15 @@ class LeadRepository
 
         $direction = strtoupper($direction) === 'ASC' ? 'ASC' : 'DESC';
 
-        $sql = "SELECT * FROM course_leads WHERE 1=1";
+        $sql = "SELECT * FROM course_leads WHERE deleted_at IS NULL";
         $params = [];
 
         if ($keyword !== '') {
-            $sql .= " AND (fullname LIKE :keyword OR email LIKE :keyword OR phone LIKE :keyword OR interested_course LIKE :keyword)";
-            $params['keyword'] = '%' . $keyword . '%';
+            $sql .= " AND (fullname LIKE :keyword1 OR email LIKE :keyword2 OR phone LIKE :keyword3 OR interested_course LIKE :keyword4)";
+            $params['keyword1'] = '%' . $keyword . '%';
+            $params['keyword2'] = '%' . $keyword . '%';
+            $params['keyword3'] = '%' . $keyword . '%';
+            $params['keyword4'] = '%' . $keyword . '%';
         }
         if ($status !== '') {
             $sql .= " AND status = :status";
@@ -91,7 +97,7 @@ class LeadRepository
 
     public function findById(int $id): ?array
     {
-        $stmt = $this->db->prepare("SELECT * FROM course_leads WHERE id = :id LIMIT 1");
+        $stmt = $this->db->prepare("SELECT * FROM course_leads WHERE id = :id AND deleted_at IS NULL LIMIT 1");
         $stmt->execute(['id' => $id]);
         $lead = $stmt->fetch();
         return $lead ?: null;
@@ -125,7 +131,7 @@ class LeadRepository
 
     public function delete(int $id): bool
     {
-        $stmt = $this->db->prepare("DELETE FROM course_leads WHERE id = :id");
+        $stmt = $this->db->prepare("UPDATE course_leads SET deleted_at = NOW() WHERE id = :id");
         return $stmt->execute(['id' => $id]);
     }
 }

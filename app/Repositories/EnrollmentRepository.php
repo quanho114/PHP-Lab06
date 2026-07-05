@@ -17,12 +17,14 @@ class EnrollmentRepository
 
     public function countAll(string $keyword = '', string $payment_status = ''): int
     {
-        $sql = "SELECT COUNT(*) AS total FROM enrollments WHERE 1=1";
+        $sql = "SELECT COUNT(*) AS total FROM enrollments WHERE deleted_at IS NULL";
         $params = [];
 
         if ($keyword !== '') {
-            $sql .= " AND (enrollment_code LIKE :keyword OR student_name LIKE :keyword OR student_email LIKE :keyword)";
-            $params['keyword'] = '%' . $keyword . '%';
+            $sql .= " AND (enrollment_code LIKE :keyword1 OR student_name LIKE :keyword2 OR student_email LIKE :keyword3)";
+            $params['keyword1'] = '%' . $keyword . '%';
+            $params['keyword2'] = '%' . $keyword . '%';
+            $params['keyword3'] = '%' . $keyword . '%';
         }
         if ($payment_status !== '') {
             $sql .= " AND payment_status = :payment_status";
@@ -43,12 +45,14 @@ class EnrollmentRepository
 
         $direction = strtoupper($direction) === 'ASC' ? 'ASC' : 'DESC';
 
-        $sql = "SELECT * FROM enrollments WHERE 1=1";
+        $sql = "SELECT * FROM enrollments WHERE deleted_at IS NULL";
         $params = [];
 
         if ($keyword !== '') {
-            $sql .= " AND (enrollment_code LIKE :keyword OR student_name LIKE :keyword OR student_email LIKE :keyword)";
-            $params['keyword'] = '%' . $keyword . '%';
+            $sql .= " AND (enrollment_code LIKE :keyword1 OR student_name LIKE :keyword2 OR student_email LIKE :keyword3)";
+            $params['keyword1'] = '%' . $keyword . '%';
+            $params['keyword2'] = '%' . $keyword . '%';
+            $params['keyword3'] = '%' . $keyword . '%';
         }
         if ($payment_status !== '') {
             $sql .= " AND payment_status = :payment_status";
@@ -69,18 +73,37 @@ class EnrollmentRepository
 
     public function create(array $data): bool
     {
-        $sql = "INSERT INTO enrollments (enrollment_code, student_name, student_email, course_fee, payment_status)
-                VALUES (:enrollment_code, :student_name, :student_email, :course_fee, :payment_status)";
-        $stmt = $this->db->prepare($sql);
+        $this->db->beginTransaction();
         try {
-            return $stmt->execute([
+            $sql = "INSERT INTO enrollments (enrollment_code, student_name, student_email, course_fee, payment_status)
+                    VALUES (:enrollment_code, :student_name, :student_email, :course_fee, :payment_status)";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([
                 'enrollment_code' => $data['enrollment_code'],
                 'student_name' => $data['student_name'],
                 'student_email' => $data['student_email'] ?? null,
                 'course_fee' => $data['course_fee'] ?? 0.00,
                 'payment_status' => $data['payment_status'] ?? 'unpaid'
             ]);
+
+            $enrollmentId = (int)$this->db->lastInsertId();
+
+            // Insert payment record if payment_status is 'paid'
+            if (($data['payment_status'] ?? 'unpaid') === 'paid') {
+                $paySql = "INSERT INTO payments (enrollment_id, amount, payment_method)
+                           VALUES (:enrollment_id, :amount, :payment_method)";
+                $payStmt = $this->db->prepare($paySql);
+                $payStmt->execute([
+                    'enrollment_id' => $enrollmentId,
+                    'amount' => $data['course_fee'] ?? 0.00,
+                    'payment_method' => 'cash'
+                ]);
+            }
+
+            $this->db->commit();
+            return true;
         } catch (PDOException $e) {
+            $this->db->rollBack();
             if (isset($e->errorInfo[1]) && (int)$e->errorInfo[1] === 1062) {
                 throw new DuplicateRecordException('Mã phiếu đăng ký này đã tồn tại trong hệ thống.');
             }
@@ -90,7 +113,7 @@ class EnrollmentRepository
 
     public function findById(int $id): ?array
     {
-        $stmt = $this->db->prepare("SELECT * FROM enrollments WHERE id = :id LIMIT 1");
+        $stmt = $this->db->prepare("SELECT * FROM enrollments WHERE id = :id AND deleted_at IS NULL LIMIT 1");
         $stmt->execute(['id' => $id]);
         $enrollment = $stmt->fetch();
         return $enrollment ?: null;
@@ -123,20 +146,20 @@ class EnrollmentRepository
 
     public function delete(int $id): bool
     {
-        $stmt = $this->db->prepare("DELETE FROM enrollments WHERE id = :id");
+        $stmt = $this->db->prepare("UPDATE enrollments SET deleted_at = NOW() WHERE id = :id");
         return $stmt->execute(['id' => $id]);
     }
 
     public function findLatestEnrollmentCode(): ?string
     {
-        $stmt = $this->db->query("SELECT enrollment_code FROM enrollments ORDER BY id DESC LIMIT 1");
+        $stmt = $this->db->query("SELECT enrollment_code FROM enrollments WHERE deleted_at IS NULL ORDER BY id DESC LIMIT 1");
         $code = $stmt->fetchColumn();
         return $code ?: null;
     }
 
     public function getRevenueSum(): float
     {
-        $stmt = $this->db->query("SELECT SUM(course_fee) FROM enrollments WHERE payment_status = 'paid'");
+        $stmt = $this->db->query("SELECT SUM(course_fee) FROM enrollments WHERE payment_status = 'paid' AND deleted_at IS NULL");
         return (float)($stmt->fetchColumn() ?: 0.00);
     }
 }

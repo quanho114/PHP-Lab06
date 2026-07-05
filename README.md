@@ -100,3 +100,39 @@ docker exec -i crm_db mysql -uroot -proot training_crm < database/seed.sql
 ```bash
 docker exec -i crm_web php /var/www/html/scratch/test_crm.php
 ```
+
+---
+
+## 📁 Cấu Trúc Thư Mục Dự Án (Folder Structure)
+
+```text
+├── app/                  # Thư mục mã nguồn chính (MVC)
+│   ├── Controllers/      # Các Controller nhận và điều hướng request
+│   ├── Core/             # Lớp cốt lõi hệ thống (Database, Router, Exceptions, helpers...)
+│   ├── Repositories/     # Lớp tương tác CSDL trực tiếp (Chạy các câu lệnh SQL)
+│   ├── Services/         # Xử lý logic nghiệp vụ chính (Validation, Business logic)
+│   └── Views/            # Chứa các file giao diện HTML/PHP (Layouts, Partials)
+├── config/               # Thư mục chứa cấu hình hệ thống (app.php, database.php)
+├── database/             # File cấu trúc CSDL và các script seed dữ liệu mẫu
+│   ├── schema.sql        # Cấu trúc bảng và ràng buộc khóa ngoại
+│   ├── seed.sql          # Seed dữ liệu mặc định ban đầu
+│   └── seed_data.php     # Script PHP seed dữ liệu dummy số lượng lớn (150+ dòng)
+├── public/               # Thư mục gốc web chứa file index.php và assets tĩnh (CSS, JS)
+├── scratch/              # Thư mục chứa script kiểm thử tự động (test_crm.php)
+├── storage/              # Chứa file log nhật ký hệ thống (logs/app.log)
+├── docker-compose.yml    # Định nghĩa cấu hình môi trường chạy Docker
+└── README.md             # Tài liệu hướng dẫn dự án
+```
+
+---
+
+## ⚠️ Lưu Ý Cấu Hình Môi Trường (Debug vs Production)
+
+*   **Môi trường Development (Debug Mode - Bật):**
+    *   Cấu hình trong `config/app.php`: thiết lập `'debug' => true`.
+    *   Hệ thống sẽ hiển thị chi tiết các thông báo lỗi và Stack Trace trực tiếp trên màn hình giúp lập trình viên gỡ lỗi nhanh chóng.
+*   **Môi trường Production (Debug Mode - Tắt):**
+    *   Cấu hình trong `config/app.php`: thiết lập `'debug' => false`.
+    *   Ẩn hoàn toàn chi tiết lỗi kỹ thuật để tránh lộ thông tin nhạy cảm. Hệ thống hiển thị trang lỗi 500 thân thiện: *"Đã có lỗi hệ thống xảy ra. Vui lòng liên hệ quản trị viên."*
+    *   Mọi thông tin lỗi phát sinh sẽ được ghi nhận tự động vào **`storage/logs/app.log`** để quản trị viên tiện tra cứu và xử lý lỗi.
+

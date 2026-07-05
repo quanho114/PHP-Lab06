@@ -15,7 +15,7 @@
     
     <div class="main-area">
         <main class="main-content">
-            <?php partial('flash'); ?>
+            <?php partial('flash', ['flash' => $flash ?? []]); ?>
             <?= $content ?? '' ?>
         </main>
         

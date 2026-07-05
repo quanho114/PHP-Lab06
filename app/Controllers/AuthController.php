@@ -52,6 +52,7 @@ class AuthController
         }
 
         // Authentication failed
+        log_message("Failed login attempt for email: " . $email);
         $errors['general'] = 'Email hoặc mật khẩu không đúng.';
         $_SESSION['errors'] = $errors;
         $_SESSION['old_input'] = ['email' => $email];
